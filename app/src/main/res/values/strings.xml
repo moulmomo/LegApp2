@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Leg App 2</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="scan">Scan</string>
+    <string name="stop">Stop</string>
+    <string name="localisation">Localisation</string>
+    <string name="title_activity_localisation">Leg App - Localisation</string>
+</resources>
