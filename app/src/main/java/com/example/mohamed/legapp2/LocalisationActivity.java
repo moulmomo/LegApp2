@@ -45,7 +45,7 @@ public class LocalisationActivity extends Activity {
             text1 = text1+" Balise "+(i+1)+" : ("+beacons.get(i).major +" , "+ beacons.get(i).minor+" , "+beacons.get(i).rssi+")" ;
             for (int j=0;j<m;j++){
                 if(beacons.get(i).rssi > -70 && beacons.get(i).minor.equals(localisations.get(j).minor) && beacons.get(i).major.equals(localisations.get(j).major)) {
-                    text2 = text2+localisations.get(j).nom +" ";
+                    text2 = text2+localisations.get(j).name +" ";
                 }
             }
         }

@@ -7,10 +7,10 @@ public class Localisation {
 
     public String major;
     public String minor;
-    public String nom;
+    public String name;
 
-    public Localisation(String nom, String major, String minor){
-        this.nom = nom;
+    public Localisation(String name, String major, String minor){
+        this.name = name;
         this.major = major;
         this.minor = minor;
     }
