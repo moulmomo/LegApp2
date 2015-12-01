@@ -11,6 +11,14 @@ public class Lieu {
     private String minor;
     private String type;
 
+   /* public Lieu(String name, String major, String minor, String type){
+    setName(name);
+    setMajor(major);
+    setMinor(minor);
+    setType(type);
+
+    }*/
+
     public long getId() {
         return id;
     }
@@ -50,6 +58,8 @@ public class Lieu {
     public void setType(String type) {
         this.type = type;
     }
+
+
 
     @Override
     public String toString(){

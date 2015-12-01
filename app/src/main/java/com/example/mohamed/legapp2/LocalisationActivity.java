@@ -5,31 +5,36 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import com.example.mohamed.legapp2.Beacon;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class LocalisationActivity extends Activity {
 
+
+
     private ArrayList<Beacon> beacons;
-    private ArrayList<Localisation> localisations;
     String text1 = " ";
     String text2 = " ";
+
+    private LieuDAO dataSource;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_localisation);
 
-        localisations = new ArrayList<Localisation>();
-        Localisation localisation1 = new Localisation("Salle de réunion","10000","1");
-        Localisation localisation2 = new Localisation("Bureau Directeur","10000","2");
-        Localisation localisation3 = new Localisation("Bureau Trésorier","10000","3");
-        localisations.add(localisation1);
-        localisations.add(localisation2);
-        localisations.add(localisation3);
+        dataSource = new LieuDAO(this);
+        dataSource.open();
+
+        List<Lieu> values = dataSource.getAllLieu();
+
+        final ArrayAdapter<Lieu> adapter = new ArrayAdapter<Lieu>(this, android.R.layout.simple_list_item_1, values);
 
         beacons = new ArrayList<Beacon>();
         Intent intent = this.getIntent();
@@ -39,13 +44,13 @@ public class LocalisationActivity extends Activity {
         TextView textView2 = (TextView) findViewById(R.id.textView2);
 
         int l = beacons.size();
-        int m = localisations.size();
+        int m = adapter.getCount();
         //le RSSI decroit avec la distance
         for (int i=0;i<l;i++){
             text1 = text1+" Balise "+(i+1)+" : ("+beacons.get(i).major +" , "+ beacons.get(i).minor+" , "+beacons.get(i).rssi+")" ;
             for (int j=0;j<m;j++){
-                if(beacons.get(i).rssi > -70 && beacons.get(i).minor.equals(localisations.get(j).minor) && beacons.get(i).major.equals(localisations.get(j).major)) {
-                    text2 = text2+localisations.get(j).name +" ";
+                if(beacons.get(i).rssi > -70 && beacons.get(i).minor.equals(adapter.getItem(j).getMinor()) && beacons.get(i).major.equals(adapter.getItem(j).getMajor())) {
+                    text2 = text2+adapter.getItem(j).getName() +" ";
                 }
             }
         }
@@ -78,3 +83,12 @@ public class LocalisationActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 }
+
+
+
+/*
+*  android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.mohamed.legapp2.MainActivity" />
+* */

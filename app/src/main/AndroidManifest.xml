@@ -27,8 +27,12 @@
         <activity
             android:name=".LocalisationActivity"
             android:label="@string/title_activity_localisation"
-            android:parentActivityName="com.example.mohamed.legapp2.MainActivity">
-            <meta-data android:name="android.support.PARENT_ACTIVITY" android:value="com.example.mohamed.legapp2.MainActivity" />>
+            android:parentActivityName=".MainActivity" >
+        </activity>
+        <activity
+            android:name=".AjouterLieu"
+            android:label="@string/title_activity_ajouter_lieu"
+            android:parentActivityName=".MainActivity" >
         </activity>
     </application>
 

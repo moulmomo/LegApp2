@@ -69,7 +69,7 @@ public class MainActivity extends Activity {
         beacons.clear();
         scanLeDevice(true);
 
-        handler_localisation.postDelayed(new Runnable() {
+       /* handler_localisation.postDelayed(new Runnable() {
             @Override
             public void run() {
                 Intent intent = new Intent(parent,com.example.mohamed.legapp2.LocalisationActivity.class);
@@ -77,7 +77,7 @@ public class MainActivity extends Activity {
                 startActivity(intent);
             }
         }, SCAN_PERIOD);
-
+*/
     }
 
 
@@ -115,6 +115,10 @@ public class MainActivity extends Activity {
                 Intent intent = new Intent(parent,com.example.mohamed.legapp2.LocalisationActivity.class);
                 intent.putParcelableArrayListExtra("key", beacons);
                 startActivity(intent);
+
+            case R.id.menu_ajouter_lieu:
+                Intent intent1 = new Intent(parent,com.example.mohamed.legapp2.AjouterLieu.class);
+                startActivity(intent1);
         }
 
         return super.onOptionsItemSelected(item);
