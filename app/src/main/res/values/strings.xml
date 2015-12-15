@@ -14,6 +14,11 @@
     <string name="minor">Minor</string>
     <string name="type">Type</string>
 
+    <string-array name="typesArray">
+        <item>Lumière</item>
+        <item>Température</item>
+        <item>Taux de CO2</item>
+    </string-array>
 
 
 </resources>

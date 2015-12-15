@@ -112,9 +112,10 @@ public class MainActivity extends Activity {
                 break;
 
             case R.id.menu_localisation:
-                Intent intent = new Intent(parent,com.example.mohamed.legapp2.LocalisationActivity.class);
-                intent.putParcelableArrayListExtra("key", beacons);
-                startActivity(intent);
+                Intent intent0 = new Intent(parent,com.example.mohamed.legapp2.LocalisationActivity.class);
+                intent0.putParcelableArrayListExtra("key", beacons);
+                startActivity(intent0);
+                break;
 
             case R.id.menu_ajouter_lieu:
                 Intent intent1 = new Intent(parent,com.example.mohamed.legapp2.AjouterLieu.class);

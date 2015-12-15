@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <color name="white">#ffffff</color>
     <color name="red">#ff0000</color>
     <color name="green">#00ff00</color>
+    <color name="darkBlue">#000050</color>
     <color name="blue">#0000ff</color>
+    <color name="sweetBlue">#009cc8</color>
     <color name="grey">#d0d0ff</color>
     <color name="darkGrey">#606060</color>
+    <color name="blueGrey">#1515c9</color>
     <color name="black">#000000</color>
-    <color name="white">#ffffff</color>
-    <color name="darkBlue">#000090</color>
+
 
 </resources>

@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.lang.reflect.Array;
@@ -23,7 +24,8 @@ public class AjouterLieu extends ListActivity {
     String name, major, minor, type;
     String text = " ";
     TextView listeLieux;
-    EditText nameEdit, majorEdit, minorEdit, typeEdit ;
+    EditText nameEdit, majorEdit, minorEdit ;
+    Spinner typeSpinner;
     Button ajouter, supprimer;
     private LieuDAO dataSource;
 
@@ -52,7 +54,7 @@ public class AjouterLieu extends ListActivity {
         nameEdit = (EditText)findViewById(R.id.nameEdit);
         majorEdit = (EditText)findViewById(R.id.majorEdit);
         minorEdit = (EditText)findViewById(R.id.minorEdit);
-        typeEdit = (EditText)findViewById(R.id.typeEdit);
+        typeSpinner = (Spinner)findViewById(R.id.typeSpinner);
         ajouter = (Button)findViewById(R.id.ajouter);
         supprimer = (Button)findViewById(R.id.supprimerPremier);
 
@@ -64,7 +66,7 @@ public class AjouterLieu extends ListActivity {
                 if(adapter.getCount()>0) {
 
 
-                    Lieu lieu = (Lieu) adapter.getItem(0);
+                    Lieu lieu = adapter.getItem(0);
                     dataSource.deleteLieu(lieu);
                     adapter.remove(lieu);
                 }
@@ -74,13 +76,14 @@ public class AjouterLieu extends ListActivity {
 
     }
 
+
     private View.OnClickListener ajouterListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             name = nameEdit.getText().toString();
             major = majorEdit.getText().toString();
             minor = minorEdit.getText().toString();
-            type = typeEdit.getText().toString();
+            type = String.valueOf(typeSpinner.getSelectedItem());
 
             ArrayAdapter<Lieu> adapter = (ArrayAdapter<Lieu>) getListAdapter();
             Lieu lieu;
