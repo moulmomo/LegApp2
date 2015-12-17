@@ -3,8 +3,6 @@ package com.example.mohamed.legapp2;
 import android.app.Activity;
 import android.app.ListActivity;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,7 +11,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import java.lang.reflect.Array;
 import java.util.List;
@@ -22,8 +19,6 @@ import java.util.List;
 public class AjouterLieu extends ListActivity {
 
     String name, major, minor, type;
-    String text = " ";
-    TextView listeLieux;
     EditText nameEdit, majorEdit, minorEdit ;
     Spinner typeSpinner;
     Button ajouter, supprimer;
@@ -44,13 +39,6 @@ public class AjouterLieu extends ListActivity {
         ListView list = (ListView) findViewById(android.R.id.list);
         list.setAdapter(adapter);
 
-        /*int l = values.size();
-        for(int i=0;i<l;i++){
-            text = text +"("+values.get(i).getName()+" , "+values.get(i).getMajor()+values.get(i).getMinor()+" , "+values.get(i).getType()+")";
-        }
-
-        listeLieux.setText(text);*/
-
         nameEdit = (EditText)findViewById(R.id.nameEdit);
         majorEdit = (EditText)findViewById(R.id.majorEdit);
         minorEdit = (EditText)findViewById(R.id.minorEdit);
@@ -58,58 +46,31 @@ public class AjouterLieu extends ListActivity {
         ajouter = (Button)findViewById(R.id.ajouter);
         supprimer = (Button)findViewById(R.id.supprimerPremier);
 
+        ajouter.setOnClickListener(new View.OnClickListener(){
+                @Override
+            public void onClick(View v){
+                    name = nameEdit.getText().toString();
+                    major = majorEdit.getText().toString();
+                    minor = minorEdit.getText().toString();
+                    type = String.valueOf(typeSpinner.getSelectedItem());
+                    Lieu lieu = dataSource.createLieu(name, major, minor, type);    //ajoute le lieu dans la base de données
+                    adapter.add(lieu);                                              //ajoute le lieu dans la listView
+                    adapter.notifyDataSetChanged();
+            }
+        });
 
-        ajouter.setOnClickListener(ajouterListener);
         supprimer.setOnClickListener(new View.OnClickListener(){
             @Override
         public void onClick(View v){
                 if(adapter.getCount()>0) {
-
-
                     Lieu lieu = adapter.getItem(0);
                     dataSource.deleteLieu(lieu);
                     adapter.remove(lieu);
                 }
             }
         });
-        //nameEdit.addTextChangedListener(textWatcher);
 
     }
-
-
-    private View.OnClickListener ajouterListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            name = nameEdit.getText().toString();
-            major = majorEdit.getText().toString();
-            minor = minorEdit.getText().toString();
-            type = String.valueOf(typeSpinner.getSelectedItem());
-
-            ArrayAdapter<Lieu> adapter = (ArrayAdapter<Lieu>) getListAdapter();
-            Lieu lieu;
-            lieu = dataSource.createLieu(name, major, minor, type);
-            adapter.add(lieu);
-            adapter.notifyDataSetChanged();
-        }
-    };
-    /*private TextWatcher textWatcher = new TextWatcher() {
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-            result.setText(defaut);
-        }
-
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count,
-                                      int after) {
-
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {
-
-        }
-    };*/
 
 
     @Override

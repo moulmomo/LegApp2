@@ -1,6 +1,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.mohamed.legapp2.LocalisationActivity">
+
     <item android:id="@+id/action_settings" android:title="@string/action_settings"
+        android:orderInCategory="100" android:showAsAction="never" />
+    <item android:id="@+id/item_menu_ajouter_lieu" android:title="@string/title_activity_ajouter_lieu"
         android:orderInCategory="100" android:showAsAction="never" />
 </menu>

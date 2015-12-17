@@ -7,19 +7,35 @@
     tools:context="com.example.mohamed.legapp2.LocalisationActivity">
 
     <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:text="Aucune balise identifiée"
+        android:textSize="25dp"
+        android:layout_above="@+id/textView3"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="67dp" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="300dp"
+        android:layout_height="100dp"
+        android:gravity="center"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:textSize="20dp" />
+
+    <TextView
         android:id="@+id/textView1"
         android:layout_width="300dp"
         android:layout_height="100dp"
-        android:background="@color/grey"
-        android:layout_centerHorizontal="true" />
+        android:gravity="center"
+        android:layout_marginBottom="42dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/textView3" />
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="150dp"
-        android:layout_height="80dp"
-        android:background="@color/grey"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:text="@string/hello_world"/>
+
 
 </RelativeLayout>

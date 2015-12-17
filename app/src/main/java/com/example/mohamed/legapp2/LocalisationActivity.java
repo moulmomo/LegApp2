@@ -20,6 +20,7 @@ public class LocalisationActivity extends Activity {
     private ArrayList<Beacon> beacons;
     String text1 = " ";
     String text2 = " ";
+    Lieu lieu;
 
     private LieuDAO dataSource;
 
@@ -42,6 +43,7 @@ public class LocalisationActivity extends Activity {
 
         TextView textView1 = (TextView) findViewById(R.id.textView1);
         TextView textView2 = (TextView) findViewById(R.id.textView2);
+        TextView textView3 = (TextView) findViewById(R.id.textView3);
 
         int l = beacons.size();
         int m = adapter.getCount();
@@ -51,12 +53,23 @@ public class LocalisationActivity extends Activity {
             for (int j=0;j<m;j++){
                 if(beacons.get(i).rssi > -70 && beacons.get(i).minor.equals(adapter.getItem(j).getMinor()) && beacons.get(i).major.equals(adapter.getItem(j).getMajor())) {
                     text2 = text2+adapter.getItem(j).getName() +" ";
+                    lieu = adapter.getItem(j);
                 }
             }
         }
 
+
         textView1.setText(text1);
-        textView2.setText(text2);
+        if (text2 != " ") textView2.setText(text2);
+        if(lieu != null) {
+            if (lieu.getType() == "Lumière") textView3.setText("Lumière allumée");
+            else {
+                if (lieu.getType() == "Température") textView3.setText("Température : 25°C");
+                else {
+                    if (lieu.getType() == "Taux de CO2") textView3.setText("Taux de CO2 : 30%");
+                }
+            }
+        }
 
     }
 
@@ -75,9 +88,15 @@ public class LocalisationActivity extends Activity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+
+        switch (id) {
+            case R.id.action_settings: {
+                return true;
+            }
+
+            case R.id.item_menu_ajouter_lieu:
+                Intent intent1 = new Intent(this, com.example.mohamed.legapp2.AjouterLieu.class);
+                startActivity(intent1);
         }
 
         return super.onOptionsItemSelected(item);
