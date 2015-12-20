@@ -33,7 +33,7 @@ public class AjouterLieu extends ListActivity {
         dataSource = new LieuDAO(this);
         dataSource.open();
 
-        List<Lieu> values = dataSource.getAllLieu();
+        List<Lieu> values = dataSource.getAllLieu();        //récupère le contenu de la base de données
 
         final ArrayAdapter<Lieu> adapter = new ArrayAdapter<Lieu>(this, android.R.layout.simple_list_item_1, values);
         ListView list = (ListView) findViewById(android.R.id.list);
@@ -64,8 +64,8 @@ public class AjouterLieu extends ListActivity {
         public void onClick(View v){
                 if(adapter.getCount()>0) {
                     Lieu lieu = adapter.getItem(0);
-                    dataSource.deleteLieu(lieu);
-                    adapter.remove(lieu);
+                    dataSource.deleteLieu(lieu);            //supprime le lieu de la base de données
+                    adapter.remove(lieu);                   //supprime le lieu de la listView
                 }
             }
         });
@@ -82,12 +82,9 @@ public class AjouterLieu extends ListActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
@@ -106,4 +103,5 @@ public class AjouterLieu extends ListActivity {
         dataSource.close();
         super.onPause();
     }
+
 }

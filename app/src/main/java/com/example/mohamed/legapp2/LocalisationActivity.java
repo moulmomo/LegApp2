@@ -3,6 +3,7 @@ package com.example.mohamed.legapp2;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.telephony.SmsManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
@@ -20,6 +21,7 @@ public class LocalisationActivity extends Activity {
     private ArrayList<Beacon> beacons;
     String text1 = " ";
     String text2 = " ";
+    String num = "0667560237";
     Lieu lieu;
 
     private LieuDAO dataSource;
@@ -39,7 +41,7 @@ public class LocalisationActivity extends Activity {
 
         beacons = new ArrayList<Beacon>();
         Intent intent = this.getIntent();
-        beacons = intent.getParcelableArrayListExtra("key");
+        beacons = intent.getParcelableArrayListExtra("key");            //récupère l'array passée par la mainActivity
 
         TextView textView1 = (TextView) findViewById(R.id.textView1);
         TextView textView2 = (TextView) findViewById(R.id.textView2);
@@ -58,15 +60,21 @@ public class LocalisationActivity extends Activity {
             }
         }
 
-
         textView1.setText(text1);
-        if (text2 != " ") textView2.setText(text2);
+        if (!text2.equals(" ")) textView2.setText(text2);
         if(lieu != null) {
-            if (lieu.getType() == "Lumière") textView3.setText("Lumière allumée");
+            if (lieu.getType().equals("Lumière")) textView3.setText("Lumière allumée");
             else {
-                if (lieu.getType() == "Température") textView3.setText("Température : 25°C");
+                if (lieu.getType().equals("Température")) textView3.setText("Température : 25°C");
                 else {
-                    if (lieu.getType() == "Taux de CO2") textView3.setText("Taux de CO2 : 30%");
+                    if (lieu.getType().equals("Taux de CO2")) textView3.setText("Taux de CO2 : 30%");
+                    else {
+                        if(lieu.getType().equals("Mohamed")) {
+                            textView3.setText("Mohamed est à proximité");
+                            SmsManager smsManager = SmsManager.getDefault();
+                            smsManager.sendTextMessage(num,null,"Mohamed est à proximité ! ",null,null);
+                        }
+                    }
                 }
             }
         }
@@ -87,13 +95,11 @@ public class LocalisationActivity extends Activity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-
         switch (id) {
+
             case R.id.action_settings: {
                 return true;
             }
-
             case R.id.item_menu_ajouter_lieu:
                 Intent intent1 = new Intent(this, com.example.mohamed.legapp2.AjouterLieu.class);
                 startActivity(intent1);
@@ -101,6 +107,7 @@ public class LocalisationActivity extends Activity {
 
         return super.onOptionsItemSelected(item);
     }
+
 }
 
 
