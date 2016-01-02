@@ -6,4 +6,7 @@
         android:orderInCategory="100" android:showAsAction="never" />
     <item android:id="@+id/item_menu_ajouter_lieu" android:title="@string/title_activity_ajouter_lieu"
         android:orderInCategory="100" android:showAsAction="never" />
+    <item android:id="@+id/menu_scan" android:title="@string/scan"
+        android:orderInCategory="100" android:showAsAction="ifRoom" />
+
 </menu>

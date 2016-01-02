@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -46,6 +47,8 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // ensures that application is properly initialized with default settings, which application might need to read in order to determine some behaviors
+        PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
         mHandler = new Handler();
         handler_localisation = new Handler();
         devices = new ArrayList();
@@ -98,7 +101,9 @@ public class MainActivity extends Activity {
 
             //noinspection SimplifiableIfStatement
             case R.id.action_settings:
-                return true;
+                Intent intent2 = new Intent(parent,com.example.mohamed.legapp2.SettingsActivity.class);
+                startActivity(intent2);
+                break;
 
             case R.id.menu_scan:
                 listAdapter.clear();

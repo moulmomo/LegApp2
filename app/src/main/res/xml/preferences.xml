@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ListPreference
+        android:key="pref_threshold"
+        android:title="@string/pref_threshold"
+        android:dialogTitle="@string/pref_threshold"
+        android:summary="@string/pref_threshold_summ"
+        android:entries="@array/pref_threshold_entries"
+        android:entryValues="@array/pref_threshold_values"
+        android:defaultValue="@string/pref_threshold_default" />
+    <EditTextPreference
+        android:key="pref_smsText"
+        android:title="@string/pref_smsText"
+        android:summary="@string/pref_smsText_summ"
+        android:defaultValue="Texte du SMS" />
+    <EditTextPreference
+        android:key="pref_smsNum"
+        android:title="@string/pref_smsNum"
+        android:summary="@string/pref_smsNum_summ"
+        android:defaultValue="0667560237" />
+
+</PreferenceScreen>

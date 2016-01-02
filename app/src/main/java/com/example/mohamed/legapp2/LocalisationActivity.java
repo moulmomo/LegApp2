@@ -2,13 +2,14 @@ package com.example.mohamed.legapp2;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.telephony.SmsManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
-import com.example.mohamed.legapp2.Beacon;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,8 +22,10 @@ public class LocalisationActivity extends Activity {
     private ArrayList<Beacon> beacons;
     String text1 = " ";
     String text2 = " ";
-    String num = "0667560237";
+    String num;
+    String smsText = "sms";
     Lieu lieu;
+    int seuilRSSI = -70;
 
     private LieuDAO dataSource;
 
@@ -31,6 +34,10 @@ public class LocalisationActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_localisation);
+
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        smsText = sharedPref.getString("pref_smsText", "");
+        num =  sharedPref.getString("pref_smsNum", "");
 
         dataSource = new LieuDAO(this);
         dataSource.open();
@@ -53,7 +60,7 @@ public class LocalisationActivity extends Activity {
         for (int i=0;i<l;i++){
             text1 = text1+" Balise "+(i+1)+" : ("+beacons.get(i).major +" , "+ beacons.get(i).minor+" , "+beacons.get(i).rssi+")" ;
             for (int j=0;j<m;j++){
-                if(beacons.get(i).rssi > -70 && beacons.get(i).minor.equals(adapter.getItem(j).getMinor()) && beacons.get(i).major.equals(adapter.getItem(j).getMajor())) {
+                if(beacons.get(i).rssi > seuilRSSI && beacons.get(i).minor.equals(adapter.getItem(j).getMinor()) && beacons.get(i).major.equals(adapter.getItem(j).getMajor())) {
                     text2 = text2+adapter.getItem(j).getName() +" ";
                     lieu = adapter.getItem(j);
                 }
@@ -69,10 +76,10 @@ public class LocalisationActivity extends Activity {
                 else {
                     if (lieu.getType().equals("Taux de CO2")) textView3.setText("Taux de CO2 : 30%");
                     else {
-                        if(lieu.getType().equals("Mohamed")) {
+                        if(lieu.getType().equals("SMS")) {
                             textView3.setText("Mohamed est à proximité");
                             SmsManager smsManager = SmsManager.getDefault();
-                            smsManager.sendTextMessage(num,null,"Mohamed est à proximité ! ",null,null);
+                            smsManager.sendTextMessage(num,null,smsText,null,null);
                         }
                     }
                 }
@@ -97,9 +104,16 @@ public class LocalisationActivity extends Activity {
         int id = item.getItemId();
         switch (id) {
 
-            case R.id.action_settings: {
-                return true;
-            }
+            case R.id.action_settings:
+                Intent intent2 = new Intent(this,com.example.mohamed.legapp2.SettingsActivity.class);
+                startActivity(intent2);
+                break;
+
+            case R.id.menu_scan:
+                Intent intent0 = new Intent(this,com.example.mohamed.legapp2.MainActivity.class);
+                startActivity(intent0);
+                break;
+
             case R.id.item_menu_ajouter_lieu:
                 Intent intent1 = new Intent(this, com.example.mohamed.legapp2.AjouterLieu.class);
                 startActivity(intent1);
